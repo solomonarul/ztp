@@ -14,7 +14,10 @@ pub fn main() !void
     // Create FTP server on said address.
     var server = ztp.FTPServer.create(.{
         .address = address,
-        .root_dir = "./",
-    });
+        .root_dir = "/",
+    }) catch |err| {
+        log.err("[SRVR]: Fatal error occured on server creation: {}", .{err});
+        return;
+    };
     try server.run();
 }
